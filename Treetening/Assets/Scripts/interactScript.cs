@@ -1,6 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class rayCastScript : MonoBehaviour
+public class interactScript : MonoBehaviour
 {
     [SerializeField] private float hitAcceptanceRadius;
     [SerializeField] private float hitDamage;
@@ -12,32 +13,43 @@ public class rayCastScript : MonoBehaviour
     public Material debugSphereMaterial;
     [Tooltip("Duration to show the debug sphere (seconds)")]
     public float debugSphereDuration = 2f;
+    [Tooltip("Debug sphere?")]
+    [SerializeField] private bool debug;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            Explode();
+            Detect();
         }
     }
 
-    void Explode()
+    // Creates a sphere that detects gameObjects inside it and hands them properly
+    void Detect()
     {
-        Vector3 explosionPoint = playerPos.position + Camera.main.transform.forward * 1.5f;
+        Vector3 explosionPoint = playerPos.position + Camera.main.transform.forward * 1f;
         Debug.Log($"playerPos.position: {playerPos.position}");
         Collider[] hits = Physics.OverlapSphere(explosionPoint, hitAcceptanceRadius, hitLayers);
 
-        // Visualize explosion point and radius
-        VisualizeExplosion(explosionPoint);
+        // Visualize explosion point and radius (Debug purposes)
+        if(debug)
+            VisualizeExplosion(explosionPoint);
 
         foreach (Collider hit in hits)
         {
-            Debug.Log($"Hit: {hit.gameObject.name}");
-            // Apply damage, spawn effects, etc.
+            Debug.Log($"Hit: {hit.gameObject.name}");       //prints the name of the gameObjects that were in the hit radius (Debug purposes)
+            
+            // If a root was detected
+            if (hit.CompareTag("Root"))
+            {
+                //destroyRoot(hit.gameObject);
+                hit.gameObject.GetComponent<rootScript>().DestroyRoot();
+            }
         }
     }
 
+    //  Creates a sphere taht represents the area affected by the hit detection (Debug purposes)
     void VisualizeExplosion(Vector3 explosionPoint)
     {
         // Create a sphere primitive for visualization
