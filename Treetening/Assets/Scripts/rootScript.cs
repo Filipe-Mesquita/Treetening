@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class rootScript : MonoBehaviour
+public class RootScript : MonoBehaviour
 {
     //deletes the gameObject the script is atached to
     public void DestroyRoot()

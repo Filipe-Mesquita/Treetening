@@ -293,7 +293,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 238287088}
-  - component: {fileID: 238287089}
+  - component: {fileID: 238287090}
+  - component: {fileID: 238287091}
   m_Layer: 6
   m_Name: Tree
   m_TagString: Untagged
@@ -318,7 +319,34 @@ Transform:
   - {fileID: 1992645530}
   m_Father: {fileID: 1906140128}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &238287089
+--- !u!54 &238287090
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238287087}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &238287091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,7 +355,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 238287087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 019e72e5c0fd60142a9c2c41dda3d086, type: 3}
+  m_Script: {fileID: 11500000, guid: 37bdbe78a0ac6bb4aa3359b60490d2db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 5
@@ -1050,6 +1078,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1937086927}
+  - component: {fileID: 1937086929}
   - component: {fileID: 1937086928}
   m_Layer: 0
   m_Name: Player
@@ -1085,7 +1114,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1937086926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4e94463a4cfc346b940cbe09c167e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 67241bcd48ba20940968d9dbc5fd8975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1937086929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937086926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 945a67327d6eb7f46ba2fdb7864abbb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hitAcceptanceRadius: 0.5
@@ -1093,10 +1134,10 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 64
-  playerPos: {fileID: 1036069178}
+  playerPos: {fileID: 264944136}
   debugSphereMaterial: {fileID: 2100000, guid: ff188f58422043f489060e28a5e4e0c0, type: 2}
   debugSphereDuration: 2
-  debug: 1
+  debug: 0
 --- !u!1 &1992645529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,7 +1256,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1992645529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17ad7ad10b8a30943a6acada9b414f9f, type: 3}
+  m_Script: {fileID: 11500000, guid: c6a2cfe4ac338d448bf4ef17ef4237a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2057732479

@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class interactScript : MonoBehaviour
+public class InteractScript : MonoBehaviour
 {
     [SerializeField] private float hitAcceptanceRadius;
     [SerializeField] private float hitDamage;
@@ -20,9 +20,7 @@ public class interactScript : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
-        {
             Detect();
-        }
     }
 
     // Creates a sphere that detects gameObjects inside it and hands them properly
@@ -44,7 +42,7 @@ public class interactScript : MonoBehaviour
             if (hit.CompareTag("Root"))
             {
                 //destroyRoot(hit.gameObject);
-                hit.gameObject.GetComponent<rootScript>().DestroyRoot();
+                hit.gameObject.GetComponent<RootScript>().DestroyRoot();
             }
         }
     }
