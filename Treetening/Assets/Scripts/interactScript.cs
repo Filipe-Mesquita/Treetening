@@ -24,7 +24,7 @@ public class InteractScript : MonoBehaviour
     }
 
     // Creates a sphere that detects gameObjects inside it and hands them properly
-    void Detect()
+    private void Detect()
     {
         Vector3 explosionPoint = playerPos.position + Camera.main.transform.forward * 1f;
         Debug.Log($"playerPos.position: {playerPos.position}");

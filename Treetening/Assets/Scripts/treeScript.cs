@@ -44,7 +44,7 @@ public class TreeScript : MonoBehaviour
             Debug.LogWarning("Unable to reference root's RB to freeze.");
     }
 
-    void UnfreezeTree()
+    public void UnfreezeTree()
     {
         Rigidbody treeRB = GetComponent<Rigidbody>();
         if(treeRB != null)
