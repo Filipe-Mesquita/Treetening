@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponScript : MonoBehaviour
 {
     public List<Weapon> weaponLst = new List<Weapon>();
-    [SerializeField] private int equipedWeaponId;
+    [SerializeField] private int equippedWeaponId;
     [SerializeField] private float pushForce = 500f;
 
     [Header("Raycast settings")]
@@ -18,9 +19,9 @@ public class WeaponScript : MonoBehaviour
     {
         if(weaponLst.Count == 0)
         {
-           weaponLst.Add(new Weapon(1,"AirShotgun",5f,6f));
+           weaponLst.Add(new Weapon(0,"AirShotgun",5f,6f));
         }
-        equipedWeaponId = weaponLst[0].WeaponId;
+        equippedWeaponId = weaponLst[0].WeaponId;
 
         mainCamera = Camera.main;
         if (mainCamera == null)
@@ -34,16 +35,48 @@ public class WeaponScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
             shoot();
+
+        float scroll = Input.GetAxisRaw("Mouse ScrollWheel");
+        if (scroll < 0f) 
+        {
+            SwitchToPreviousWeapon();
+        }
+        else if (scroll > 0f)
+        {
+            SwitchToNextWeapon();
+        }
     }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------
-//Este modo de fazer o tiro é temporário, futuramente armas diferentes poderam utilizar tipos de hot detection diferentes e por isso esta lógica será alterada
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------
+    //Use mouse scroll Wheel to switch equped weapon
+    //----------------------------------------------
+    private void SwitchToPreviousWeapon()
+    {
+       if(equippedWeaponId > 0)
+            equippedWeaponId--;
+        else
+            equippedWeaponId = weaponLst.Count-1;
+        
+        Debug.Log("D");             //Debug
+    }
+    private void SwitchToNextWeapon()
+    {
+        if(equippedWeaponId < weaponLst.Count-1)
+            equippedWeaponId++;
+        else
+            equippedWeaponId = 0;
+
+        Debug.Log("U");             //Debug
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //Este modo de fazer o tiro é temporário, futuramente armas diferentes poderam utilizar tipos de hot detection diferentes e por isso esta lógica será alterada
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------
     private void shoot()
     {
-        if (weaponLst[equipedWeaponId-1].WeaponAmmunition <= 0)
+        if (weaponLst[equippedWeaponId].WeaponAmmunition <= 0)
         {
-            Debug.Log($"No ammo in {weaponLst[equipedWeaponId].WeaponName}!");
+            Debug.Log($"No ammo in {weaponLst[equippedWeaponId].WeaponName}!");
             return;
         }
 
