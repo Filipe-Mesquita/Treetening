@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private float raycastDistance = 100f;
     [SerializeField] private LayerMask raycastLayers;
     private Camera mainCamera;
+    private bool hasRoot=true;
 
     void Start()
     {
@@ -59,8 +61,7 @@ public class WeaponScript : MonoBehaviour
                 if(treeScript!=null)
                 {
                     treeScript.UnfreezeTree();
-                }
-                else
+                } else
                 {
                     Debug.LogError("No treeScript in hit!");
                 }
@@ -70,6 +71,16 @@ public class WeaponScript : MonoBehaviour
                 {
                     Vector3 forceDirection = mainCamera.transform.forward;
                     treeRb.AddForce(forceDirection * pushForce, ForceMode.Impulse);
+
+                    if (hasRoot)
+                    {
+                        RootScript rootScript = hit.collider.gameObject.GetComponentInChildren<RootScript>();
+                        if(rootScript==null)
+                            Debug.LogError("No rootScript in hit!");
+                        rootScript.EnableRootCollider();
+                        Debug.Log("Root Collider enabled!");
+                        hasRoot=false;
+                    }
                 }
             }
         }

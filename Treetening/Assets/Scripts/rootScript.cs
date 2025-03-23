@@ -2,9 +2,22 @@ using UnityEngine;
 
 public class RootScript : MonoBehaviour
 {
-    //deletes the gameObject the script is atached to
+    void Start()
+    {
+        DisableRootCollider();
+    }
     public void DestroyRoot()
     {
         Destroy(gameObject);
+    }
+
+    public void DisableRootCollider()
+    {
+        GetComponent<SphereCollider>().enabled = false;
+    }
+
+    public void EnableRootCollider()
+    {
+        GetComponent<SphereCollider>().enabled = true;
     }
 }
