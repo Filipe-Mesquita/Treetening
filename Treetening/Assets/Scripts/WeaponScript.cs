@@ -13,13 +13,12 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private float raycastDistance = 100f;
     [SerializeField] private LayerMask raycastLayers;
     private Camera mainCamera;
-    private bool hasRoot=true;
 
     void Start()
     {
-        if(weaponLst.Count == 0)
+        if (weaponLst.Count == 0)
         {
-           weaponLst.Add(new Weapon(0,"AirShotgun",5f,6f));
+            weaponLst.Add(new Weapon(0, "AirShotgun", 5f, 6f));
         }
         equippedWeaponId = weaponLst[0].WeaponId;
 
@@ -37,7 +36,7 @@ public class WeaponScript : MonoBehaviour
             shoot();
 
         float scroll = Input.GetAxisRaw("Mouse ScrollWheel");
-        if (scroll < 0f) 
+        if (scroll < 0f)
         {
             SwitchToPreviousWeapon();
         }
@@ -52,16 +51,16 @@ public class WeaponScript : MonoBehaviour
     //----------------------------------------------
     private void SwitchToPreviousWeapon()
     {
-       if(equippedWeaponId > 0)
+        if (equippedWeaponId > 0)
             equippedWeaponId--;
         else
-            equippedWeaponId = weaponLst.Count-1;
-        
+            equippedWeaponId = weaponLst.Count - 1;
+
         Debug.Log("D");             //Debug
     }
     private void SwitchToNextWeapon()
     {
-        if(equippedWeaponId < weaponLst.Count-1)
+        if (equippedWeaponId < weaponLst.Count - 1)
             equippedWeaponId++;
         else
             equippedWeaponId = 0;
@@ -91,42 +90,38 @@ public class WeaponScript : MonoBehaviour
             if (hit.collider.CompareTag("Tree"))
             {
                 TreeScript treeScript = hit.collider.gameObject.GetComponent<TreeScript>();
-                if(treeScript!=null)
+                if (treeScript != null)
                 {
                     treeScript.UnfreezeTree();
-                } else
+                }
+                else
                 {
                     Debug.LogError("No treeScript in hit!");
                 }
 
                 Rigidbody treeRb = hit.collider.gameObject.GetComponent<Rigidbody>();
-                if(treeRb!=null)
+                if (treeRb != null)
                 {
                     Vector3 forceDirection = mainCamera.transform.forward;
                     treeRb.AddForce(forceDirection * pushForce, ForceMode.Impulse);
 
+                    bool hasRoot = treeScript.getHasRoot();
+                    Debug.LogWarning("HasRoot = " + hasRoot); //debug
+
                     if (hasRoot)
                     {
                         RootScript rootScript = hit.collider.gameObject.GetComponentInChildren<RootScript>();
-                        if(rootScript==null)
+                        if (rootScript == null)
                             Debug.LogError("No rootScript in hit!");
-                        rootScript.EnableRootCollider();
-                        Debug.Log("Root Collider enabled!");
-                        hasRoot=false;
+                        else
+                        {
+                            rootScript.EnableRootCollider();
+                            Debug.Log("Root Collider enabled!");
+                        }
+                        treeScript.setHassRoot(false);
                     }
                 }
             }
-        }
-    }
-
-    void OawGizmos()
-    {
-        if (mainCamera != null)
-        {
-            Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
-            Ray ray = mainCamera.ScreenPointToRay(screenCenter);
-            Gizmos.color = Color.red;
-            Gizmos.DrawRay(ray.origin, ray.direction * raycastDistance);
         }
     }
 }
