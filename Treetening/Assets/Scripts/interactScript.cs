@@ -32,7 +32,7 @@ public class InteractScript : MonoBehaviour
 
         // Visualize explosion point and radius (Debug purposes)
         if(debug)
-            VisualizeExplosion(explosionPoint);
+            VisualizeDetection(explosionPoint);
 
         foreach (Collider hit in hits)
         {
@@ -48,7 +48,7 @@ public class InteractScript : MonoBehaviour
     }
 
     //  Creates a sphere taht represents the area affected by the hit detection (Debug purposes)
-    void VisualizeExplosion(Vector3 explosionPoint)
+    void VisualizeDetection(Vector3 explosionPoint)
     {
         // Create a sphere primitive for visualization
         GameObject debugSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);

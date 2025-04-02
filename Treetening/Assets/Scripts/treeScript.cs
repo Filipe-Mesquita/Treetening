@@ -8,12 +8,12 @@ public class TreeScript : MonoBehaviour
     [SerializeField] private float hp;
     [SerializeField] private float rootValue;
     [SerializeField] private string treeName;
-    private bool hasRoot;
+    private bool fallenTree;
 
     void Start()
     {
         FreezeTree();
-        hasRoot = true;
+        fallenTree = false;
     }
 
     // ---------------------------///------------------------------///-------------------------------------///---------------------
@@ -43,13 +43,13 @@ public class TreeScript : MonoBehaviour
             Debug.LogWarning("Unable to reference root's RB to freeze.");
     }
 
-    public bool getHasRoot()
+    public bool getFallenTree()
     {
-        return hasRoot;
+        return fallenTree;
     }
 
-    public void setHassRoot(bool hasRoot)
+    public void setFallenTree(bool fallenTree)
     {
-        this.hasRoot = hasRoot;
+        this.fallenTree = fallenTree;
     }
 }
