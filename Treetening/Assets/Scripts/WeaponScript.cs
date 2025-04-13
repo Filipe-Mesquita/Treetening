@@ -16,6 +16,7 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private float raycastDistance = 100f;
     [SerializeField] private LayerMask raycastLayers;
     private Camera mainCamera;
+    private Animator weaponAnimator;
 
     void Start()
     {
@@ -31,6 +32,8 @@ public class WeaponScript : MonoBehaviour
             Debug.LogError("Main camera not found! (WeaponScript)");
             return;
         }
+
+        weaponAnimator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -82,12 +85,16 @@ public class WeaponScript : MonoBehaviour
             return;
         }
 
+        weaponAnimator.SetTrigger("punch");
+
         Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = mainCamera.ScreenPointToRay(screenCenter);
 
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, raycastDistance, raycastLayers))
         {
+            
+
             Debug.Log($"Hit: {hit.collider.gameObject.name} at {hit.distance}");
 
             if (hit.collider.CompareTag("Tree"))
