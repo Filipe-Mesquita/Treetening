@@ -44,6 +44,10 @@ public class InteractScript : MonoBehaviour
                 //destroyRoot(hit.gameObject);
                 hit.gameObject.GetComponent<RootScript>().DestroyRoot();
             }
+            /*
+            Aqui ficaram o resto das interações
+            *fazer um if para cada caso*
+            */
         }
     }
 
