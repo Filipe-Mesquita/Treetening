@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponId: rocket_gloves
   weaponName: RocketGloves
-  weaponPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 4049719465983569340, guid: f1e2293fc7377b94ea5e6f1b29bc257e, type: 3}
   baseAttribute1: 10
   baseAttribute2: 1
   attribute1Name: Damage
