@@ -20,11 +20,18 @@ public class RocketGlovesBehaviour : WeaponBehaviour
     public GameObject hitboxObject; // Reference to the hitbox's GameObject
     private RocketGloveHitbox hitboxScript;
 
+    [Header("RightGlove")]
+    public GameObject gloveObject;
+    private RocketGloveAnim animScript;
+
     void Start()
     {
         hitboxScript = hitboxObject.GetComponent<RocketGloveHitbox>();
         hitboxScript.Initialize(this);
         hitboxObject.SetActive(false);
+
+        animScript = gloveObject.GetComponent<RocketGloveAnim>();
+        animScript.Initialize(this);
     }
 
     public override void shoot()
@@ -33,6 +40,10 @@ public class RocketGlovesBehaviour : WeaponBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Punch");
+            if(animator.GetBool("right"))
+                animator.SetBool("right", false);
+            else
+                animator.SetBool("right",true);
         }
         else
         {
@@ -42,11 +53,13 @@ public class RocketGlovesBehaviour : WeaponBehaviour
 
     public void EnableHitbox()
     {
+        Debug.Log("Hitbox ativa");
         hitboxObject.SetActive(true);
     }
 
     public void DisableHitbox()
     {
+        Debug.Log("Hitbox inativa");
         hitboxObject.SetActive(false);
     }
 
