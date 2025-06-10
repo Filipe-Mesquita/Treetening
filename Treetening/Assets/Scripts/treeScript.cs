@@ -16,19 +16,10 @@ public class TreeScript : MonoBehaviour
         fallenTree = false;
     }
 
-    // ---------------------------///------------------------------///-------------------------------------///---------------------
-    // Warning!!!!! Do not leave this here, instead check the tree hp every time it gets hit and unfreeze the tree when it is <= 0f
-    void Update()
-    {
-        if (hp <= 0f)
-            UnfreezeTree();
-    }
-    // ---------------------------///------------------------------///-------------------------------------///---------------------
-
     void FreezeTree()
     {
         Rigidbody treeRB = GetComponent<Rigidbody>();
-        if(treeRB != null)
+        if (treeRB != null)
             treeRB.freezeRotation = true;
         else
             Debug.LogWarning("Unable to reference root's RB to freeze.");
@@ -37,7 +28,7 @@ public class TreeScript : MonoBehaviour
     public void UnfreezeTree()
     {
         Rigidbody treeRB = GetComponent<Rigidbody>();
-        if(treeRB != null)
+        if (treeRB != null)
             treeRB.freezeRotation = false;
         else
             Debug.LogWarning("Unable to reference root's RB to freeze.");
@@ -51,5 +42,21 @@ public class TreeScript : MonoBehaviour
     public void setFallenTree(bool fallenTree)
     {
         this.fallenTree = fallenTree;
+    }
+
+    public bool takeDamage(float dmg)
+    {
+        hp = hp - dmg;
+        Debug.Log($"Tree hp = {hp}");
+
+        if (hp <= 0f)
+        {
+            UnfreezeTree();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

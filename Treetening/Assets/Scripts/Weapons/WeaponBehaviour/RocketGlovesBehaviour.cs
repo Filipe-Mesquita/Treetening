@@ -40,10 +40,10 @@ public class RocketGlovesBehaviour : WeaponBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Punch");
-            if(animator.GetBool("right"))
+            if (animator.GetBool("right"))
                 animator.SetBool("right", false);
             else
-                animator.SetBool("right",true);
+                animator.SetBool("right", true);
         }
         else
         {
@@ -71,26 +71,32 @@ public class RocketGlovesBehaviour : WeaponBehaviour
             treeScript.UnfreezeTree();
         else
             Debug.LogError("No treeScript in hit!");
-
-        Rigidbody treeRb = hit.gameObject.GetComponent<Rigidbody>();
-        if (treeRb != null)
+            
+        if (treeScript.takeDamage(instance.GetAttribute1Value(data)))
         {
-            Transform cam = Camera.main.transform;
-            Vector3 forceDirection = cam.forward;
-            treeRb.AddForce(forceDirection * pushForce, ForceMode.Impulse);
+            treeScript.UnfreezeTree();
 
-            bool fallenTree = treeScript.getFallenTree();
-
-            if (!fallenTree)
+            Rigidbody treeRb = hit.gameObject.GetComponent<Rigidbody>();
+            if (treeRb != null)
             {
-                treeScript.setFallenTree(true);
-                Debug.Log("HandleRootCollider");
-                StartCoroutine(HandleRootCollider(hit));
+                Transform cam = Camera.main.transform;
+                Vector3 forceDirection = cam.forward;
+                treeRb.AddForce(forceDirection * pushForce, ForceMode.Impulse);
+
+                bool fallenTree = treeScript.getFallenTree();
+
+                if (!fallenTree)
+                {
+                    treeScript.setFallenTree(true);
+                    Debug.Log("HandleRootCollider");
+                    StartCoroutine(HandleRootCollider(hit));
+                }
             }
-        }
-        else
-        {
-            Debug.LogError("treeRB not found!");
+            else
+            {
+                Debug.LogError("treeRB not found!");
+            }
+
         }
     }
 

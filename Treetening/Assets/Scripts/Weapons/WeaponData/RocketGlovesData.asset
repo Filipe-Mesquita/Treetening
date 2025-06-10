@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponId: rocket_gloves
   weaponName: RocketGloves
   weaponPrefab: {fileID: 4153980737739256243, guid: b631e519098dc9643a40603188088c69, type: 3}
-  baseAttribute1: 10
+  baseAttribute1: 2
   baseAttribute2: 1
   attribute1Name: Damage
   attribute2Name: PunchingSpeed
