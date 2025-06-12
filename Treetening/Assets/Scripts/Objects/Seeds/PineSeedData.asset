@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c013f868c914204397d2d094d830442, type: 3}
+  m_Name: PineSeedData
+  m_EditorClassIdentifier: 
+  seedID: 1
+  seedName: Pine Seed
+  treePrefab: {fileID: 9074008161073276477, guid: 65b6f7b115ff58b4d85c4449d030d80e, type: 3}

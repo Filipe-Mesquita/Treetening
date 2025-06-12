@@ -37,12 +37,17 @@ public class InteractScript : MonoBehaviour
         foreach (Collider hit in hits)
         {
             Debug.Log($"Hit: {hit.gameObject.name}");       //prints the name of the gameObjects that were in the hit radius (Debug purposes)
-            
+
             // If a root was detected
             if (hit.CompareTag("Root"))
             {
                 //destroyRoot(hit.gameObject);
                 hit.gameObject.GetComponent<RootScript>().DestroyRoot();
+            }
+            // If the plnter is detected
+            if (hit.CompareTag("Planter"))
+            {
+                hit.gameObject.GetComponent<PlanterScript>().addSeeds(0, 2);  //Debug, na versão final os valores do ID e da quantidade devem ser passados conforme o que o player tiver equipado
             }
             /*
             Aqui ficarão o resto das interações
