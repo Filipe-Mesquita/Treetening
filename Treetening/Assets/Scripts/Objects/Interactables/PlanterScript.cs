@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using TMPro;
 using UnityEngine;
 
 public class PlanterScript : MonoBehaviour
@@ -62,7 +64,30 @@ public class PlanterScript : MonoBehaviour
     public void addSeeds(int seedID, int seedQTT)
     {
         availableSeeds[seedID] = availableSeeds[seedID] + seedQTT;
-        Debug.Log($"Available seeds = {availableSeeds[seedID]}");
+        updateCard(seedID, availableSeeds[seedID]);
+    }
+
+    public void updateCard(int ID, int newQtt)
+    {
+        Transform card;
+        switch (ID)
+        {
+            case 0:
+                card = transform.Find("SeedsCanvas/SeedCardContainer/MahoganyCard/SeedQtt");
+                break;
+            case 1:
+                card = transform.Find("SeedsCanvas/SeedCardContainer/PineCard/SeedQtt");
+                break;
+            default:
+                card = transform.Find("SeedsCanvas/SeedCardContainer/MahoganyCard/SeedQtt");
+                break;
+        }
+
+        if (card != null)
+        {
+            TextMeshProUGUI cardText = card.GetComponent<TextMeshProUGUI>();
+            cardText.text = newQtt.ToString();
+        }
     }
 
     public void TryPlantSeed(int seedID)
@@ -86,6 +111,7 @@ public class PlanterScript : MonoBehaviour
                 Debug.Log($"Seed {seedID} planted at {hit.point}");
 
                 availableSeeds[seedID]--;
+                updateCard(seedID, availableSeeds[seedID]);
             }
             else
             {

@@ -47,7 +47,7 @@ public class InteractScript : MonoBehaviour
             // If the plnter is detected
             if (hit.CompareTag("Planter"))
             {
-                hit.gameObject.GetComponent<PlanterScript>().addSeeds(0, 2);  //Debug, na versão final os valores do ID e da quantidade devem ser passados conforme o que o player tiver equipado
+                hit.gameObject.GetComponent<PlanterScript>().addSeeds(1, 5);  //Debug, na versão final os valores do ID e da quantidade devem ser passados conforme o que o player tiver equipado
             }
             /*
             Aqui ficarão o resto das interações
