@@ -54,6 +54,11 @@ public class PlanterScript : MonoBehaviour
         }
     }
 
+    public int GetSeedQuantity(int ID)
+    {
+        return availableSeeds[ID];
+    }
+
     public void addSeeds(int seedID, int seedQTT)
     {
         availableSeeds[seedID] = availableSeeds[seedID] + seedQTT;

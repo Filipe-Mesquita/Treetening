@@ -15,3 +15,4 @@ MonoBehaviour:
   seedID: 0
   seedName: Mahogany Seed
   treePrefab: {fileID: 1899982518276300361, guid: 07b7a651b9d78d74d95022c78bf9aded, type: 3}
+  seedSprite: {fileID: 21300000, guid: 751aa1b6637101946b2fdbb7aa27d6ad, type: 3}

@@ -8,4 +8,6 @@ public class SeedData : ScriptableObject
     public string seedName;
 
     public GameObject treePrefab;
+
+    public Sprite seedSprite;
 }
