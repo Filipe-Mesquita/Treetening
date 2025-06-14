@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class RocketGlovesBehaviour : WeaponBehaviour
 {
-    public float range = 3f;
-    public float radius = 1.3f;
     public LayerMask hitLayer;
 
     [Tooltip("Value of the force applied to the tree when it dies")]
@@ -16,21 +14,30 @@ public class RocketGlovesBehaviour : WeaponBehaviour
     [Header("Animation")]
     public Animator animator;
 
-    [Header("Hitbox")]
-    public GameObject hitboxObject; // Reference to the hitbox's GameObject
-    private RocketGloveHitbox hitboxScript;
+    private bool punchAnimToggle = false;   //Used to alternate between left and right punches
+    public bool canShoot = true;    //Used to make sure the weapon only can shoot when not in the midle of an animation
 
-    [Header("RightGlove")]
-    public GameObject gloveObject;
+    [Header("Hitbox")]
+    public GameObject rightHitboxObject; // Reference to the right hitbox's GameObject
+    public GameObject leftHitboxObject; // Reference to the left hitbox's GameObject
+    private RocketGloveHitbox rightHitboxScript;
+    private RocketGloveHitbox leftHitboxScript;
+
+    [Header("RocketGloves")]
+    public GameObject glovesObject;
     private RocketGloveAnim animScript;
 
     void Start()
     {
-        hitboxScript = hitboxObject.GetComponent<RocketGloveHitbox>();
-        hitboxScript.Initialize(this);
-        hitboxObject.SetActive(false);
+        rightHitboxScript = rightHitboxObject.GetComponent<RocketGloveHitbox>();
+        rightHitboxScript.Initialize(this);
+        rightHitboxObject.SetActive(false);
 
-        animScript = gloveObject.GetComponent<RocketGloveAnim>();
+        leftHitboxScript = leftHitboxObject.GetComponent<RocketGloveHitbox>();
+        leftHitboxScript.Initialize(this);
+        leftHitboxObject.SetActive(false);
+
+        animScript = glovesObject.GetComponent<RocketGloveAnim>();
         animScript.Initialize(this);
     }
 
@@ -39,11 +46,19 @@ public class RocketGlovesBehaviour : WeaponBehaviour
         //Triggers the animation
         if (animator != null)
         {
-            animator.SetTrigger("Punch");
-            if (animator.GetBool("right"))
-                animator.SetBool("right", false);
-            else
-                animator.SetBool("right", true);
+            if (canShoot)
+            {
+                if (punchAnimToggle)
+                {
+                    animator.SetTrigger("right");
+                }
+                else
+                {
+                    animator.SetTrigger("left");
+                }
+
+                punchAnimToggle = !punchAnimToggle;
+            }
         }
         else
         {
@@ -53,14 +68,21 @@ public class RocketGlovesBehaviour : WeaponBehaviour
 
     public void EnableHitbox()
     {
-        Debug.Log("Hitbox ativa");
-        hitboxObject.SetActive(true);
+        //Debug.Log("Hitbox ativa");
+        rightHitboxObject.SetActive(true);
+        leftHitboxObject.SetActive(true);
     }
 
     public void DisableHitbox()
     {
-        Debug.Log("Hitbox inativa");
-        hitboxObject.SetActive(false);
+        //Debug.Log("Hitbox inativa");
+        rightHitboxObject.SetActive(false);
+        leftHitboxObject.SetActive(false);
+    }
+
+    public void setCanShoot(bool freeToShoot)
+    {
+        canShoot = freeToShoot;
     }
 
 
@@ -71,7 +93,7 @@ public class RocketGlovesBehaviour : WeaponBehaviour
             treeScript.UnfreezeTree();
         else
             Debug.LogError("No treeScript in hit!");
-            
+
         if (treeScript.takeDamage(instance.GetAttribute1Value(data)))
         {
             treeScript.UnfreezeTree();

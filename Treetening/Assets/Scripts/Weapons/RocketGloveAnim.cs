@@ -14,8 +14,18 @@ public class RocketGloveAnim : MonoBehaviour
         weapon.EnableHitbox();
     }
 
-    public void DisableHitbox()
+    public void DisabletHitbox()
     {
         weapon.DisableHitbox();
+    }
+
+    public void EnableShoot()
+    {
+        weapon.setCanShoot(true);
+    }
+
+    public void DisableShoot()
+    {
+        weapon.setCanShoot(false);
     }
 }
