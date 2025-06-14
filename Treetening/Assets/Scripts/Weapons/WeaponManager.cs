@@ -3,7 +3,7 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     public Transform weaponSlot;
-    public PlayerWeaponInventory inventory;
+    public PlayerInventory inventory;
     public WeaponBehaviour currentWeapon;
 
     public void EquipWeapon(string weaponId)

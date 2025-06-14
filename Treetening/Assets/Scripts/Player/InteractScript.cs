@@ -1,10 +1,11 @@
+using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractScript : MonoBehaviour
 {
     [SerializeField] private float hitAcceptanceRadius;
-    [SerializeField] private float hitDamage;
     [SerializeField] private LayerMask hitLayers;
     [SerializeField] private Transform playerPos;
 
@@ -15,6 +16,9 @@ public class InteractScript : MonoBehaviour
     public float debugSphereDuration = 2f;
     [Tooltip("Debug sphere?")]
     [SerializeField] private bool debug;
+
+    [Header("External Scripts")]
+    [SerializeField] private PlayerInventory inventory;
 
     // Update is called once per frame
     void Update()
@@ -31,7 +35,7 @@ public class InteractScript : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(explosionPoint, hitAcceptanceRadius, hitLayers);
 
         // Visualize explosion point and radius (Debug purposes)
-        if(debug)
+        if (debug)
             VisualizeDetection(explosionPoint);
 
         foreach (Collider hit in hits)
@@ -47,8 +51,24 @@ public class InteractScript : MonoBehaviour
             // If the plnter is detected
             if (hit.CompareTag("Planter"))
             {
-                hit.gameObject.GetComponent<PlanterScript>().addSeeds(0, 5);  //Debug, na versão final os valores do ID e da quantidade devem ser passados conforme o que o player tiver equipado
-                hit.gameObject.GetComponent<PlanterScript>().addSeeds(1, 3);  //Debug, na versão final os valores do ID e da quantidade devem ser passados conforme o que o player tiver equipado
+                if (inventory != null)
+                {
+                    List<int> ownedSeeds = inventory.getOwnedSeeds();
+                    PlanterScript pScirpt = hit.gameObject.GetComponent<PlanterScript>();
+                    if (pScirpt != null)
+                    {
+
+                        for (int i = 0; i < ownedSeeds.Count; i++)
+                        {
+                            pScirpt.addSeeds(i, ownedSeeds[i]);
+                            inventory.setOwnedSeed(i, 0);
+                        }
+                    }
+                    else
+                        Debug.LogError("No PlanterScript found on hit!");
+                }
+                else
+                    Debug.LogError("No PlayerInventory associated to the interact script!");
             }
             /*
             Aqui ficarão o resto das interações
