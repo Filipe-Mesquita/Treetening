@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ public class InteractScript : MonoBehaviour
     [SerializeField] private float hitAcceptanceRadius;
     [SerializeField] private LayerMask hitLayers;
     [SerializeField] private Transform playerPos;
+
+    [Header("User Interface")]
+    [SerializeField] private GameObject UI;
 
     [Header("Debug Visualization")]
     [Tooltip("Material for the debug sphere (optional)")]
@@ -31,7 +35,7 @@ public class InteractScript : MonoBehaviour
     private void Detect()
     {
         Vector3 explosionPoint = playerPos.position + Camera.main.transform.forward * 1f;
-        Debug.Log($"playerPos.position: {playerPos.position}");
+        UnityEngine.Debug.Log($"playerPos.position: {playerPos.position}");
         Collider[] hits = Physics.OverlapSphere(explosionPoint, hitAcceptanceRadius, hitLayers);
 
         // Visualize explosion point and radius (Debug purposes)
@@ -40,40 +44,71 @@ public class InteractScript : MonoBehaviour
 
         foreach (Collider hit in hits)
         {
-            Debug.Log($"Hit: {hit.gameObject.name}");       //prints the name of the gameObjects that were in the hit radius (Debug purposes)
+            UnityEngine.Debug.Log($"Hit: {hit.gameObject.name}");       //prints the name of the gameObjects that were in the hit radius (Debug purposes)
 
-            // If a root was detected
-            if (hit.CompareTag("Root"))
+            switch (hit.tag)
             {
-                //destroyRoot(hit.gameObject);
-                hit.gameObject.GetComponent<RootScript>().DestroyRoot();
-            }
-            // If the plnter is detected
-            if (hit.CompareTag("Planter"))
-            {
-                if (inventory != null)
-                {
-                    List<int> ownedSeeds = inventory.getOwnedSeeds();
-                    PlanterScript pScirpt = hit.gameObject.GetComponent<PlanterScript>();
-                    if (pScirpt != null)
+                // If a root was detected
+                case "Root":
+                    //destroyRoot(hit.gameObject);
+                    hit.gameObject.GetComponent<RootScript>().DestroyRoot();
+                    break;
+
+                // If the plnter is detected
+                case "Planter":
+                    if (inventory != null)
                     {
-
-                        for (int i = 0; i < ownedSeeds.Count; i++)
+                        List<int> ownedSeeds = inventory.getOwnedSeeds();
+                        PlanterScript pScirpt = hit.gameObject.GetComponent<PlanterScript>();
+                        if (pScirpt != null)
                         {
-                            pScirpt.addSeeds(i, ownedSeeds[i]);
-                            inventory.setOwnedSeed(i, 0);
+
+                            for (int i = 0; i < ownedSeeds.Count; i++)
+                            {
+                                pScirpt.addSeeds(i, ownedSeeds[i]);
+                                inventory.setOwnedSeed(i, 0);
+                            }
                         }
+                        else
+                            UnityEngine.Debug.LogError("No PlanterScript found on hit!");
                     }
                     else
-                        Debug.LogError("No PlanterScript found on hit!");
-                }
-                else
-                    Debug.LogError("No PlayerInventory associated to the interact script!");
+                        UnityEngine.Debug.LogError("No PlayerInventory associated to the interact script!");
+                    break;
+
+                //If the shop is detected
+                case "Shop":
+
+                    // Desabke HUd and Enable ShopUI
+                    if (UI != null)
+                    {
+                        Transform shopUI = UI.transform.Find("ShopUI");
+                        Transform hud = UI.transform.Find("HUD");
+
+                        if (shopUI != null) shopUI.gameObject.SetActive(true);
+                        if (hud != null) hud.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        UnityEngine.Debug.LogWarning("UI Root não está atribuído ao InteractScript!");
+                    }
+
+                    //Show the mouse cursor
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    break;
+
+                /*
+                Aqui ficarão o resto das interações
+                *fazer um case para cada caso*
+                */
+
+                default:
+                    UnityEngine.Debug.LogWarning("No case found for this interacin!");
+                    break;
+
+
             }
-            /*
-            Aqui ficarão o resto das interações
-            *fazer um if para cada caso*
-            */
         }
     }
 
