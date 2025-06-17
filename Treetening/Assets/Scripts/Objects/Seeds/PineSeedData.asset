@@ -16,4 +16,4 @@ MonoBehaviour:
   seedName: Pine Seed
   growthTime: 10
   treePrefab: {fileID: 9074008161073276477, guid: 65b6f7b115ff58b4d85c4449d030d80e, type: 3}
-  seedSprite: {fileID: 21300000, guid: af0ae2dbf3d1efb4f82af377950704a2, type: 3}
+  seedSprite: {fileID: 21300000, guid: 50650cea22af9f34bbbf35655faea755, type: 3}

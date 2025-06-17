@@ -59,4 +59,9 @@ public class TreeScript : MonoBehaviour
             return false;
         }
     }
+
+    public float getRootValue()
+    {
+        return rootValue;
+    }
 }

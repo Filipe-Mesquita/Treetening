@@ -114,17 +114,17 @@ public class InteractScript : MonoBehaviour
                 UnityEngine.Debug.LogError("No PlanterScript found on hit!");
         }
         else
-            UnityEngine.Debug.LogError("No PlayerInventory associated to the interact script!");
+            UnityEngine.Debug.LogError("No PlayerInventory associated to the interactScript!");
     }
 
-    private void handleShop(Collider hit)
+    public void handleShop(Collider hit)    // This one is public so the shopUIScript can access it
     {
         // If the shopUI is not enabled
         if (!isShoping)
         {
             isShoping = true;
 
-            // Desable HUd and desable ShopUI
+            // Desable HUD and enable ShopUI
             if (UI != null)
             {
                 Transform shopUI = UI.transform.Find("ShopUI");
@@ -135,7 +135,7 @@ public class InteractScript : MonoBehaviour
             }
             else
             {
-                UnityEngine.Debug.LogWarning("UI Root não está atribuído ao InteractScript!");
+                UnityEngine.Debug.LogWarning("UI Root not associated to the InteractScript!");
             }
 
             //Show the mouse cursor
