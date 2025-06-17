@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Cinemachine;
+using StarterAssets;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,6 +14,9 @@ public class InteractScript : MonoBehaviour
 
     [Header("User Interface")]
     [SerializeField] private GameObject UI;
+    [SerializeField] private GameObject PlayerCameraRoot;
+    [SerializeField] private GameObject PlayerFollowCamera;
+
 
     [Header("Debug Visualization")]
     [Tooltip("Material for the debug sphere (optional)")]
@@ -23,6 +28,8 @@ public class InteractScript : MonoBehaviour
 
     [Header("External Scripts")]
     [SerializeField] private PlayerInventory inventory;
+
+    private bool isShoping = false; // Controls of the game should show or hide shopUi
 
     // Update is called once per frame
     void Update()
@@ -79,23 +86,59 @@ public class InteractScript : MonoBehaviour
                 //If the shop is detected
                 case "Shop":
 
-                    // Desabke HUd and Enable ShopUI
-                    if (UI != null)
+                    // If the shopUI is not enabled
+                    if (!isShoping)
                     {
-                        Transform shopUI = UI.transform.Find("ShopUI");
-                        Transform hud = UI.transform.Find("HUD");
+                        isShoping = true;
 
-                        if (shopUI != null) shopUI.gameObject.SetActive(true);
-                        if (hud != null) hud.gameObject.SetActive(false);
+                        // Desable HUd and desable ShopUI
+                        if (UI != null)
+                        {
+                            Transform shopUI = UI.transform.Find("ShopUI");
+                            Transform hud = UI.transform.Find("HUD");
+
+                            if (shopUI != null) shopUI.gameObject.SetActive(true);
+                            if (hud != null) hud.gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            UnityEngine.Debug.LogWarning("UI Root não está atribuído ao InteractScript!");
+                        }
+
+                        //Show the mouse cursor
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+
+                        // Desable player and camera movement
+                        FirstPersonController fpController = GetComponentInChildren<FirstPersonController>();
+                        fpController.enabled = false;
                     }
                     else
                     {
-                        UnityEngine.Debug.LogWarning("UI Root não está atribuído ao InteractScript!");
-                    }
+                        isShoping = false;
 
-                    //Show the mouse cursor
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
+                        // Enable HUd and desable ShopUI
+                        if (UI != null)
+                        {
+                            Transform shopUI = UI.transform.Find("ShopUI");
+                            Transform hud = UI.transform.Find("HUD");
+
+                            if (shopUI != null) shopUI.gameObject.SetActive(false);
+                            if (hud != null) hud.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            UnityEngine.Debug.LogWarning("UI Root não está atribuído ao InteractScript!");
+                        }
+
+                        // Hide the mouse cursor
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+
+                        // Enable player and camera movement
+                        FirstPersonController fpController = GetComponentInChildren<FirstPersonController>();
+                        fpController.enabled = true;
+                    }
                     break;
 
                 /*
