@@ -57,88 +57,17 @@ public class InteractScript : MonoBehaviour
             {
                 // If a root was detected
                 case "Root":
-                    //destroyRoot(hit.gameObject);
-                    hit.gameObject.GetComponent<RootScript>().DestroyRoot();
+                    handleRoot(hit);
                     break;
 
                 // If the plnter is detected
                 case "Planter":
-                    if (inventory != null)
-                    {
-                        List<int> ownedSeeds = inventory.getOwnedSeeds();
-                        PlanterScript pScirpt = hit.gameObject.GetComponent<PlanterScript>();
-                        if (pScirpt != null)
-                        {
-
-                            for (int i = 0; i < ownedSeeds.Count; i++)
-                            {
-                                pScirpt.addSeeds(i, ownedSeeds[i]);
-                                inventory.setOwnedSeed(i, 0);
-                            }
-                        }
-                        else
-                            UnityEngine.Debug.LogError("No PlanterScript found on hit!");
-                    }
-                    else
-                        UnityEngine.Debug.LogError("No PlayerInventory associated to the interact script!");
+                    handlePlanter(hit);
                     break;
 
                 //If the shop is detected
                 case "Shop":
-
-                    // If the shopUI is not enabled
-                    if (!isShoping)
-                    {
-                        isShoping = true;
-
-                        // Desable HUd and desable ShopUI
-                        if (UI != null)
-                        {
-                            Transform shopUI = UI.transform.Find("ShopUI");
-                            Transform hud = UI.transform.Find("HUD");
-
-                            if (shopUI != null) shopUI.gameObject.SetActive(true);
-                            if (hud != null) hud.gameObject.SetActive(false);
-                        }
-                        else
-                        {
-                            UnityEngine.Debug.LogWarning("UI Root não está atribuído ao InteractScript!");
-                        }
-
-                        //Show the mouse cursor
-                        Cursor.lockState = CursorLockMode.None;
-                        Cursor.visible = true;
-
-                        // Desable player and camera movement
-                        FirstPersonController fpController = GetComponentInChildren<FirstPersonController>();
-                        fpController.enabled = false;
-                    }
-                    else
-                    {
-                        isShoping = false;
-
-                        // Enable HUd and desable ShopUI
-                        if (UI != null)
-                        {
-                            Transform shopUI = UI.transform.Find("ShopUI");
-                            Transform hud = UI.transform.Find("HUD");
-
-                            if (shopUI != null) shopUI.gameObject.SetActive(false);
-                            if (hud != null) hud.gameObject.SetActive(true);
-                        }
-                        else
-                        {
-                            UnityEngine.Debug.LogWarning("UI Root não está atribuído ao InteractScript!");
-                        }
-
-                        // Hide the mouse cursor
-                        Cursor.lockState = CursorLockMode.Locked;
-                        Cursor.visible = false;
-
-                        // Enable player and camera movement
-                        FirstPersonController fpController = GetComponentInChildren<FirstPersonController>();
-                        fpController.enabled = true;
-                    }
+                    handleShop(hit);
                     break;
 
                 /*
@@ -155,8 +84,99 @@ public class InteractScript : MonoBehaviour
         }
     }
 
+
+    // Functions that handle the detected object
+    private void handleRoot(Collider hit)
+    {
+        //destroyRoot(hit.gameObject);
+        hit.gameObject.GetComponent<RootScript>().DestroyRoot();
+    }
+
+    private void handlePlanter(Collider hit)
+    {
+        if (inventory != null)
+        {
+            // Gets owned seeds form inventory
+            List<int> ownedSeeds = inventory.getOwnedSeeds();
+            // Gets PLanterScript from planter
+            PlanterScript pScirpt = hit.gameObject.GetComponent<PlanterScript>();
+            if (pScirpt != null)
+            {
+
+                // Adds seeds to the planter and sets them to 0 in the inventory
+                for (int i = 0; i < ownedSeeds.Count; i++)
+                {
+                    pScirpt.addSeeds(i, ownedSeeds[i]);
+                    inventory.setOwnedSeed(i, 0);
+                }
+            }
+            else
+                UnityEngine.Debug.LogError("No PlanterScript found on hit!");
+        }
+        else
+            UnityEngine.Debug.LogError("No PlayerInventory associated to the interact script!");
+    }
+
+    private void handleShop(Collider hit)
+    {
+        // If the shopUI is not enabled
+        if (!isShoping)
+        {
+            isShoping = true;
+
+            // Desable HUd and desable ShopUI
+            if (UI != null)
+            {
+                Transform shopUI = UI.transform.Find("ShopUI");
+                Transform hud = UI.transform.Find("HUD");
+
+                if (shopUI != null) shopUI.gameObject.SetActive(true);
+                if (hud != null) hud.gameObject.SetActive(false);
+            }
+            else
+            {
+                UnityEngine.Debug.LogWarning("UI Root não está atribuído ao InteractScript!");
+            }
+
+            //Show the mouse cursor
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            // Desable player and camera movement
+            FirstPersonController fpController = GetComponentInChildren<FirstPersonController>();
+            fpController.enabled = false;
+        }
+        else
+        {
+            isShoping = false;
+
+            // Enable HUd and desable ShopUI
+            if (UI != null)
+            {
+                Transform shopUI = UI.transform.Find("ShopUI");
+                Transform hud = UI.transform.Find("HUD");
+
+                if (shopUI != null) shopUI.gameObject.SetActive(false);
+                if (hud != null) hud.gameObject.SetActive(true);
+            }
+            else
+            {
+                UnityEngine.Debug.LogWarning("UI Root não está atribuído ao InteractScript!");
+            }
+
+            // Hide the mouse cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            // Enable player and camera movement
+            FirstPersonController fpController = GetComponentInChildren<FirstPersonController>();
+            fpController.enabled = true;
+        }
+    }
+
+/*----------------------------------------------//-----------------------------------------------*/
     //  Creates a sphere taht represents the area affected by the hit detection (Debug purposes)
-    void VisualizeDetection(Vector3 explosionPoint)
+    private void VisualizeDetection(Vector3 explosionPoint)
     {
         // Create a sphere primitive for visualization
         GameObject debugSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
