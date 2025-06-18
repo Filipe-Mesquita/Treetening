@@ -106,7 +106,8 @@ public class InteractScript : MonoBehaviour
                 // Adds seeds to the planter and sets them to 0 in the inventory
                 for (int i = 0; i < ownedSeeds.Count; i++)
                 {
-                    pScirpt.addSeeds(i, ownedSeeds[i]);
+                    SeedData seed = pScirpt.allSeedData[i];
+                    pScirpt.addSeeds(seed.seedID, ownedSeeds[i]);
                     inventory.setOwnedSeed(i, 0);
                 }
             }

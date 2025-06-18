@@ -11,6 +11,8 @@ public class PlayerInventory : MonoBehaviour
 
 
     private int money;
+
+    [Header("Seeds")]
     public List<SeedData> allSeedData; //List with every seed's SeedDatas (populate manualy in the inspector)
     private List<int> ownedSeeds = new List<int>();
 

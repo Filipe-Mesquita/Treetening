@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c013f868c914204397d2d094d830442, type: 3}
   m_Name: mahoganySeedData
   m_EditorClassIdentifier: 
-  seedID: 0
+  seedID: mahogany_seed
   seedName: Mahogany Seed
   growthTime: 5
   treePrefab: {fileID: 1899982518276300361, guid: 07b7a651b9d78d74d95022c78bf9aded, type: 3}

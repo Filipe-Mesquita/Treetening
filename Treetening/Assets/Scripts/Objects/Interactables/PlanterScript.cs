@@ -57,15 +57,17 @@ public class PlanterScript : MonoBehaviour
         }
     }
 
-    public int GetSeedQuantity(int ID)
+    public int GetSeedQuantity(string seedID)
     {
-        return availableSeeds[ID];
+        int index = allSeedData.FindIndex(seed => seed.seedID == seedID);
+        return availableSeeds[index];
     }
 
-    public void addSeeds(int seedID, int seedQTT)
+    public void addSeeds(string seedID, int seedQTT)
     {
-        availableSeeds[seedID] = availableSeeds[seedID] + seedQTT;
-        updateCard(seedID, availableSeeds[seedID]);
+        int index = allSeedData.FindIndex(seed => seed.seedID == seedID);
+        availableSeeds[index] = availableSeeds[index] + seedQTT;
+        updateCard(index, availableSeeds[index]);
     }
 
     public void updateCard(int ID, int newQtt)
@@ -92,24 +94,24 @@ public class PlanterScript : MonoBehaviour
     }
 
 
-    IEnumerator PlantSeed(int seedID)
+    IEnumerator PlantSeed(int index)
     {
         isPlanting = true;
 
-        float waitTime = allSeedData[seedID].growthTime;
+        float waitTime = allSeedData[index].growthTime;
         Debug.Log($"Waiting for {waitTime} seconds");
         yield return new WaitForSeconds(waitTime);
 
-        TryPlantSeed(seedID);
+        TryPlantSeed(index);
 
         isPlanting = false;
     }
-    public void TryPlantSeed(int seedID)
+    public void TryPlantSeed(int index)
     {
-        if (availableSeeds[seedID] > 0)
+        if (availableSeeds[index] > 0)
         {
 
-            GameObject treePrefab = allSeedData[seedID].treePrefab;
+            GameObject treePrefab = allSeedData[index].treePrefab;
 
             // get a random position inside the ground bounds
             Vector3 randomPos = new Vector3(
@@ -122,10 +124,10 @@ public class PlanterScript : MonoBehaviour
             if (Physics.Raycast(randomPos, Vector3.down, out hit, 10f))
             {
                 Instantiate(treePrefab, hit.point, Quaternion.identity);
-                Debug.Log($"Seed {seedID} planted at {hit.point}");
+                Debug.Log($"Seed {index} planted at {hit.point}");
 
-                availableSeeds[seedID]--;
-                updateCard(seedID, availableSeeds[seedID]);
+                availableSeeds[index]--;
+                updateCard(index, availableSeeds[index]);
             }
             else
             {

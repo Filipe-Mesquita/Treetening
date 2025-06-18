@@ -42,7 +42,7 @@ public class ShopUIScript : MonoBehaviour
         interactScript.handleShop(shopCollider);
     }
 
-    public void openSeedInfo(int ID)
+    public void openSeedInfo(string ID)
     {
         desableAllInfos();
         if (seedInfo != null) seedInfo.SetActive(true);
@@ -67,8 +67,9 @@ public class ShopUIScript : MonoBehaviour
         // To be implemented ---------------------------------------------------------------------------
 
         //Set Owned Qtt
+        int index = allSeedDatas.FindIndex(seed => seed.seedID == ID);
         List<int> inventorySeeds = inventoryScript.getOwnedSeeds();
-        ownedQttTxt.text = $"Owned Seeds: {inventorySeeds[ID]}";
+        ownedQttTxt.text = $"Owned Seeds: {inventorySeeds[index]}";
     }
 
     public void openWeaponInfo(string ID)

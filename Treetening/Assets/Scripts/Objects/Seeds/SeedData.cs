@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SeedData", menuName = "Scriptable Objects/SeedsData")]
 public class SeedData : ScriptableObject
 {
-    public int seedID;
+    public string seedID;
 
     public string seedName;
 
