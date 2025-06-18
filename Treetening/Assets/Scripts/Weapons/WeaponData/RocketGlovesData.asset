@@ -17,5 +17,6 @@ MonoBehaviour:
   weaponPrefab: {fileID: 4153980737739256243, guid: b631e519098dc9643a40603188088c69, type: 3}
   baseAttribute1: 2
   baseAttribute2: 1
-  attribute1Name: Damage
-  attribute2Name: PunchingSpeed
+  hability1Name: Punch Damage
+  hability2Name: Punch Speed
+  weaponSprite: {fileID: 21300000, guid: c1b762f04d5c27f4f84685f8faf024af, type: 3}

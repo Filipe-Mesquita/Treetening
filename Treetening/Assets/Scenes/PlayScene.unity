@@ -236,16 +236,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactScript: {fileID: 718041336}
   shopCollider: {fileID: 1428281050}
+  inventoryScript: {fileID: 718041338}
   allSeedDatas:
   - {fileID: 11400000, guid: 390494672f971e5468b97323f1df87bd, type: 2}
   - {fileID: 11400000, guid: 7318e219009c1cd45b39b34b456d4425, type: 2}
-  inventoryScript: {fileID: 718041338}
   seedSprite: {fileID: 2000444776}
-  nameTxt: {fileID: 1213497264}
+  seedNameTxt: {fileID: 1213497264}
   growthTimeTxt: {fileID: 1633957255}
   rootValueTxt: {fileID: 1919810691}
   priceTxt: {fileID: 242168105}
   ownedQttTxt: {fileID: 583042925}
+  allWeaponDatas:
+  - {fileID: 11400000, guid: ea069f3d1d6cac8468556c6fadd0f4f5, type: 2}
+  lockedWeaponSprite: {fileID: 1459575859}
+  unlockedWeaponSprite: {fileID: 1413556956}
+  lockedWeaponNameTxt: {fileID: 1502635811}
+  unlockedWeaponNameTxt: {fileID: 1336511692}
+  hability1Txt: {fileID: 743966266}
+  hability2Txt: {fileID: 795292160}
   seedInfo: {fileID: 261312661}
   lockedWeaponInfo: {fileID: 1546926753}
   unlockedWeaponInfo: {fileID: 358189304}
@@ -848,7 +856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &261312662
 RectTransform:
   m_ObjectHideFlags: 0
@@ -931,7 +939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &286929870
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1108,7 +1116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &358189305
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3133,7 +3141,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -62, y: -514}
+  m_SizeDelta: {x: -62, y: -520}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &863351669
 MonoBehaviour:
@@ -3178,7 +3186,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 863351670}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 50122685}
+        m_TargetAssemblyTypeName: ShopUIScript, Assembly-CSharp
+        m_MethodName: openWeaponInfo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: rocket_gloves
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &863351670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3199,7 +3219,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 90ff7e9cc55c2184eb9f492f2a394970, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1b762f04d5c27f4f84685f8faf024af, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
