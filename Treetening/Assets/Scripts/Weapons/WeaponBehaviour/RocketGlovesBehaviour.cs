@@ -43,26 +43,22 @@ public class RocketGlovesBehaviour : WeaponBehaviour
 
     public override void shoot()
     {
-        //Triggers the animation
-        if (animator != null)
+        if (canShoot)
         {
-            if (canShoot)
-            {
-                if (punchAnimToggle)
-                {
-                    animator.SetTrigger("right");
-                }
-                else
-                {
-                    animator.SetTrigger("left");
-                }
+            EnableHitbox();
+            canShoot = false;
 
+            //Triggers the animation
+            if (animator != null)
+            {
+                animator.SetTrigger(punchAnimToggle ? "right" : "left");    //If true -> right, else -> left
                 punchAnimToggle = !punchAnimToggle;
             }
-        }
-        else
-        {
-            Debug.LogWarning("Animator not defined!");
+
+            else
+            {
+                Debug.LogWarning("Animator not defined!");
+            }
         }
     }
 

@@ -9,11 +9,6 @@ public class RocketGloveAnim : MonoBehaviour
         weapon = weaponRef;
     }
 
-    public void EnableHitbox()
-    {
-        weapon.EnableHitbox();
-    }
-
     public void DisabletHitbox()
     {
         weapon.DisableHitbox();
@@ -22,10 +17,5 @@ public class RocketGloveAnim : MonoBehaviour
     public void EnableShoot()
     {
         weapon.setCanShoot(true);
-    }
-
-    public void DisableShoot()
-    {
-        weapon.setCanShoot(false);
     }
 }

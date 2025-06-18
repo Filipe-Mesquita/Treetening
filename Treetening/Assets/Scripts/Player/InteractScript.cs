@@ -174,6 +174,11 @@ public class InteractScript : MonoBehaviour
         }
     }
 
+    public bool getIsShoping()
+    {
+        return isShoping;
+    }
+
 /*----------------------------------------------//-----------------------------------------------*/
     //  Creates a sphere taht represents the area affected by the hit detection (Debug purposes)
     private void VisualizeDetection(Vector3 explosionPoint)

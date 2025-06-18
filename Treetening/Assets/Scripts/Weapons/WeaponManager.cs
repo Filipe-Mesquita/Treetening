@@ -6,6 +6,8 @@ public class WeaponManager : MonoBehaviour
     public PlayerInventory inventory;
     public WeaponBehaviour currentWeapon;
 
+    [SerializeField] InteractScript interactScript;
+
     public void EquipWeapon(string weaponId)
     {
         //Removes the old weapon
@@ -37,6 +39,7 @@ public class WeaponManager : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && currentWeapon != null)
-            currentWeapon.shoot();
+            if(!interactScript.getIsShoping())
+                currentWeapon.shoot();
     }
 }

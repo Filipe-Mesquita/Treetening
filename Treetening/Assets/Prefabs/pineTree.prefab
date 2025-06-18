@@ -282,8 +282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37bdbe78a0ac6bb4aa3359b60490d2db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 5
-  rootValue: 5
+  hp: 8
+  rootValue: 10
   treeName: pine
 --- !u!65 &5033392544105496944
 BoxCollider:
