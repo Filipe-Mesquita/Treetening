@@ -14,6 +14,7 @@ public class InteractScript : MonoBehaviour
 
     [Header("User Interface")]
     [SerializeField] private GameObject UI;
+    [SerializeField] private ShopUIScript shopUIScript;
     [SerializeField] private GameObject PlayerCameraRoot;
     [SerializeField] private GameObject PlayerFollowCamera;
 
@@ -128,6 +129,8 @@ public class InteractScript : MonoBehaviour
         // If the shopUI is not enabled
         if (!isShoping)
         {
+            shopUIScript.desableAllInfos();
+
             isShoping = true;
 
             // Desable HUD and enable ShopUI

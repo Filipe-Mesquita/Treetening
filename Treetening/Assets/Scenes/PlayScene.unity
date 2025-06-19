@@ -2621,6 +2621,7 @@ MonoBehaviour:
     m_Bits: 192
   playerPos: {fileID: 1509074017}
   UI: {fileID: 1239241170}
+  shopUIScript: {fileID: 50122685}
   PlayerCameraRoot: {fileID: 1459544519}
   PlayerFollowCamera: {fileID: 1923397041}
   debugSphereMaterial: {fileID: 2100000, guid: ff188f58422043f489060e28a5e4e0c0, type: 2}

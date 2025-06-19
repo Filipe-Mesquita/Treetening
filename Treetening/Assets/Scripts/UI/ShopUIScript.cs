@@ -135,7 +135,7 @@ public class ShopUIScript : MonoBehaviour
 
 
 
-    private void desableAllInfos()
+    public void desableAllInfos()
     {
         if (seedInfo != null) seedInfo.SetActive(false);
         if (lockedWeaponInfo != null) lockedWeaponInfo.SetActive(false);
