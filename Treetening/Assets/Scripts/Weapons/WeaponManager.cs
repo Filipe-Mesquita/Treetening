@@ -21,7 +21,7 @@ public class WeaponManager : MonoBehaviour
         WeaponData data = inventory.GetWeaponData(weaponId);
         WeaponInstance instance = inventory.GetWeaponInstance(weaponId);
 
-        if (data == null || instance == null || !instance.isUnlocked)
+        if (data == null || instance == null /*|| !instance.isUnlocked*/)
         {
             Debug.LogWarning("Weapon not found or unlocked");
             return;

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class RootScript : MonoBehaviour
 {
+    [SerializeField] TreeScript treeScript;
+
     void Start()
     {
         DisableRootCollider();
@@ -19,5 +21,11 @@ public class RootScript : MonoBehaviour
     public void EnableRootCollider()
     {
         GetComponent<SphereCollider>().enabled = true;
+    }
+
+    public int getRootValue()
+    {
+        
+        return treeScript.getRootValue();
     }
 }

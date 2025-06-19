@@ -51,6 +51,7 @@ public class RocketGlovesBehaviour : WeaponBehaviour
             //Triggers the animation
             if (animator != null)
             {
+                animator.speed = instance.GetAttribute2Value(data); //Sets the speed according to the attribute2 level
                 animator.SetTrigger(punchAnimToggle ? "right" : "left");    //If true -> right, else -> left
                 punchAnimToggle = !punchAnimToggle;
             }

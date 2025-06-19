@@ -6,7 +6,7 @@ public class TreeScript : MonoBehaviour
 {
     [Header("Params")]
     [SerializeField] private float hp;
-    [SerializeField] private float rootValue;
+    [SerializeField] private int rootValue;
     [SerializeField] private string treeName;
     private bool fallenTree;
 
@@ -60,7 +60,7 @@ public class TreeScript : MonoBehaviour
         }
     }
 
-    public float getRootValue()
+    public int getRootValue()
     {
         return rootValue;
     }

@@ -88,8 +88,13 @@ public class InteractScript : MonoBehaviour
     // Functions that handle the detected object
     private void handleRoot(Collider hit)
     {
+        //Get toor's value
+        int rootValue = hit.gameObject.GetComponent<RootScript>().getRootValue();
         //destroyRoot(hit.gameObject);
         hit.gameObject.GetComponent<RootScript>().DestroyRoot();
+        //Add root's value to the player's money
+        int money = inventory.getMoney();
+        inventory.setMoney(money + rootValue);
     }
 
     private void handlePlanter(Collider hit)
@@ -108,7 +113,7 @@ public class InteractScript : MonoBehaviour
                 {
                     SeedData seed = pScirpt.allSeedData[i];
                     pScirpt.addSeeds(seed.seedID, ownedSeeds[i]);
-                    inventory.setOwnedSeed(i, 0);
+                    inventory.setOwnedSeed(seed.seedID, 0);
                 }
             }
             else
@@ -131,8 +136,13 @@ public class InteractScript : MonoBehaviour
                 Transform shopUI = UI.transform.Find("ShopUI");
                 Transform hud = UI.transform.Find("HUD");
 
-                if (shopUI != null) shopUI.gameObject.SetActive(true);
                 if (hud != null) hud.gameObject.SetActive(false);
+                if (shopUI != null)
+                {
+                    shopUI.gameObject.SetActive(true);
+                    ShopUIScript shopUIScript = shopUI.GetComponent<ShopUIScript>();
+                    shopUIScript.UpdateMoney();
+                }
             }
             else
             {
@@ -180,7 +190,7 @@ public class InteractScript : MonoBehaviour
         return isShoping;
     }
 
-/*----------------------------------------------//-----------------------------------------------*/
+    /*----------------------------------------------//-----------------------------------------------*/
     //  Creates a sphere taht represents the area affected by the hit detection (Debug purposes)
     private void VisualizeDetection(Vector3 explosionPoint)
     {

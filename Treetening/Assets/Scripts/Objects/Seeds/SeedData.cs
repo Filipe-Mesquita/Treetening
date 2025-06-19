@@ -9,6 +9,8 @@ public class SeedData : ScriptableObject
 
     public float growthTime;
 
+    public int seedPrice;
+
     public GameObject treePrefab;
 
     public Sprite seedSprite;
