@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -8,6 +9,9 @@ public class TreeScript : MonoBehaviour
     [SerializeField] private float hp;
     [SerializeField] private int rootValue;
     [SerializeField] private string treeName;
+    [SerializeField] private float timeToBeginDestroyTree = 5f;
+    [SerializeField] private float sinkTreeDuration = 4f;
+    [SerializeField] private float sinkSpeed = 0.5f;
     private bool fallenTree;
 
     void Start()
@@ -63,5 +67,46 @@ public class TreeScript : MonoBehaviour
     public int getRootValue()
     {
         return rootValue;
+    }
+
+    public void destroyTree()
+    {
+        StartCoroutine(waitAndDestroy());
+    }
+
+    private IEnumerator waitAndDestroy()
+    {
+        //Wait for the time to start destroying the tree
+        float elapsedTime = 0f;
+        while (elapsedTime < timeToBeginDestroyTree)
+        {
+            elapsedTime += Time.deltaTime; //Increases the time elapsed
+            yield return null; // Waits one frame
+        }
+
+        //Freeze tree's rotation
+        FreezeTree();
+
+        // Desable the collider
+        Collider treeCollider = GetComponent<Collider>();
+        if (treeCollider != null)
+            treeCollider.enabled = false;
+
+        // Turn Rigidbody kinematic
+        Rigidbody treeRB = GetComponent<Rigidbody>();
+        if (treeRB != null)
+            treeRB.isKinematic = true;
+
+        // Slowly sink the tree
+        float sinkElapsed = 0f;
+
+        while (sinkElapsed < sinkTreeDuration)
+        {
+            transform.position -= new Vector3(0, sinkSpeed * Time.deltaTime, 0);
+            sinkElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(gameObject);
     }
 }

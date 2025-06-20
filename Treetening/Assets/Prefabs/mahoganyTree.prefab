@@ -78,6 +78,9 @@ MonoBehaviour:
   hp: 5
   rootValue: 5
   treeName: mahogany
+  timeToBeginDestroyTree: 5
+  sinkTreeDuration: 4
+  sinkSpeed: 0.5
 --- !u!65 &188020452308235468
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -221,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treeScript: {fileID: 5638391080605053099}
+  timeToActivateRoots: 1.5
 --- !u!1 &6695927682475995486
 GameObject:
   m_ObjectHideFlags: 0

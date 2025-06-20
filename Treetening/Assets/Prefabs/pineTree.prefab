@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treeScript: {fileID: 1720322910564378515}
+  timeToActivateRoots: 1.5
 --- !u!135 &8397542359220828770
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -286,6 +287,9 @@ MonoBehaviour:
   hp: 8
   rootValue: 10
   treeName: pine
+  timeToBeginDestroyTree: 5
+  sinkTreeDuration: 4
+  sinkSpeed: 0.5
 --- !u!65 &5033392544105496944
 BoxCollider:
   m_ObjectHideFlags: 0

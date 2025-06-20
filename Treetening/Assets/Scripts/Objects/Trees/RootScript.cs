@@ -14,6 +14,7 @@ public class RootScript : MonoBehaviour
     public void DestroyRoot()
     {
         Destroy(gameObject);
+        treeScript.destroyTree();
     }
 
     public void DisableRootCollider()
