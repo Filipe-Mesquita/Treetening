@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class RocketGloveHitbox : MonoBehaviour
+public class HatchetHitbox : MonoBehaviour
 {
-    private RocketGlovesBehaviour weapon;
+    private HatchetBehaviour weapon;
 
-    public void Initialize(RocketGlovesBehaviour weaponRef)
+    public void Initialize(HatchetBehaviour weaponRef)
     {
         weapon = weaponRef;
     }
@@ -13,7 +13,7 @@ public class RocketGloveHitbox : MonoBehaviour
     {
         if (((1 << hit.gameObject.layer) & weapon.hitLayer) != 0)           // Converts the object's layer to a bitmask and uses bitwise AND to check if it's in the allowed hitLayer
         {                                                                   //For exmample, if 1 << hit.gameObject.layer returns 00010 and weapon.hitLayer is 01010 then the bitwise & will return 00010, wich is different from 0
-            Debug.Log("RocketGlove hit at: " + hit.name); //Debug       //In the sequence 00010 every bit is a layer from the ones defined in the engine, 0 means its no the selecetd layer and 1 means its the selected one
+            Debug.Log("Hatchet hit at: " + hit.name); //Debug       //In the sequence 00010 every bit is a layer from the ones defined in the engine, 0 means its no the selecetd layer and 1 means its the selected one
             weapon.applyDamage(hit); //applies damage to the object
         }
     }

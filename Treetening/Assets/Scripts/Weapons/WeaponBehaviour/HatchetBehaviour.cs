@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class RocketGlovesBehaviour : WeaponBehaviour
+public class HatchetBehaviour : WeaponBehaviour
 {
     public LayerMask hitLayer;
 
@@ -10,31 +10,24 @@ public class RocketGlovesBehaviour : WeaponBehaviour
 
     [Header("Animation")]
     public Animator animator;
-    private RocketGloveAnim animScript;
-
-    private bool punchAnimToggle = false;   //Used to alternate between left and right punches
+    private HatchetAnim animScript;
     public bool canShoot = true;    //Used to make sure the weapon only can shoot when not in the midle of an animation
 
     [Header("Hitbox")]
-    public GameObject rightHitboxObject; // Reference to the right hitbox's GameObject
-    public GameObject leftHitboxObject; // Reference to the left hitbox's GameObject
-    private RocketGloveHitbox rightHitboxScript;
-    private RocketGloveHitbox leftHitboxScript;
+    public GameObject hitboxObject; // Reference to the hitbox's GameObject
+    private HatchetHitbox hitboxScript;
 
-    [Header("RocketGloves")]
-    public GameObject glovesObject;
+    [Header("Hatchet")]
+    public GameObject hatchetObject;
+
 
     void Start()
     {
-        rightHitboxScript = rightHitboxObject.GetComponent<RocketGloveHitbox>();
-        rightHitboxScript.Initialize(this);
-        rightHitboxObject.SetActive(false);
+        hitboxScript = hitboxObject.GetComponent<HatchetHitbox>();
+        hitboxScript.Initialize(this);
+        hitboxObject.SetActive(false);
 
-        leftHitboxScript = leftHitboxObject.GetComponent<RocketGloveHitbox>();
-        leftHitboxScript.Initialize(this);
-        leftHitboxObject.SetActive(false);
-
-        animScript = glovesObject.GetComponent<RocketGloveAnim>();
+        animScript = hatchetObject.GetComponent<HatchetAnim>();
         animScript.Initialize(this);
     }
 
@@ -42,15 +35,14 @@ public class RocketGlovesBehaviour : WeaponBehaviour
     {
         if (canShoot)
         {
-            EnableHitbox();
+            //EnableHitbox();
             canShoot = false;
 
             //Triggers the animation
             if (animator != null)
             {
                 animator.speed = instance.GetAttribute2Value(data); //Sets the speed according to the attribute2 level
-                animator.SetTrigger(punchAnimToggle ? "right" : "left");    //If true -> right, else -> left
-                punchAnimToggle = !punchAnimToggle;
+                animator.SetTrigger("attack");    //treiggers the animation
             }
             else
             {
@@ -62,22 +54,19 @@ public class RocketGlovesBehaviour : WeaponBehaviour
     public void EnableHitbox()
     {
         //Debug.Log("Hitbox ativa");
-        rightHitboxObject.SetActive(true);
-        leftHitboxObject.SetActive(true);
+        hitboxObject.SetActive(true);
     }
 
     public void DisableHitbox()
     {
         //Debug.Log("Hitbox inativa");
-        rightHitboxObject.SetActive(false);
-        leftHitboxObject.SetActive(false);
+        hitboxObject.SetActive(false);
     }
 
     public void setCanShoot(bool freeToShoot)
     {
         canShoot = freeToShoot;
     }
-
 
     public void applyDamage(Collider hit)
     {
@@ -90,12 +79,11 @@ public class RocketGlovesBehaviour : WeaponBehaviour
         if (treeScript.takeDamage(instance.GetAttribute1Value(data)))
         {
             treeScript.UnfreezeTree();
-
             Rigidbody treeRb = hit.gameObject.GetComponent<Rigidbody>();
             if (treeRb != null)
             {
                 Transform cam = Camera.main.transform;
-                Vector3 forceDirection = cam.forward;
+                Vector3 forceDirection = -cam.right;
                 treeRb.AddForce(forceDirection * pushForce, ForceMode.Impulse);
 
                 bool fallenTree = treeScript.getFallenTree();
@@ -111,11 +99,10 @@ public class RocketGlovesBehaviour : WeaponBehaviour
             {
                 Debug.LogError("treeRB not found!");
             }
-
         }
     }
 
-    private IEnumerator HandleRootCollider(Collider hit)
+     private IEnumerator HandleRootCollider(Collider hit)
     {
         RootScript rootScript = hit.gameObject.GetComponentInChildren<RootScript>();
         TreeScript treeScript = hit.gameObject.GetComponent<TreeScript>();

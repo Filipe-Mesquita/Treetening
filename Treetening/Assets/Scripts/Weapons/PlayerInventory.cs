@@ -29,7 +29,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void UnlockWeapon(string weaponID)
     {
-        ownedWeapons.Add(new WeaponInstance { weaponId = weaponID/*, isUnlocked = true*/});
+        ownedWeapons.Add(new WeaponInstance { weaponId = weaponID});
     }
 
     public int getWeaponPrice()
@@ -73,14 +73,8 @@ public class PlayerInventory : MonoBehaviour
 
     void Awake()
     {
-        /*
-        if (ownedWeapons.Count == 0)
-        {
-            Debug.LogWarning("No weapons available, unlocking Rocketgloves!"); //Debug
-            ownedWeapons.Add(new WeaponInstance { weaponId = "rocket_gloves", isUnlocked = true });
-            weaponManager.EquipWeapon(ownedWeapons[0].weaponId);
-        }
-        */
+        UnlockWeapon("hatchet");
+        weaponManager.EquipWeapon("hatchet");
 
         foreach (SeedData seed in allSeedData)
         {
