@@ -21,7 +21,7 @@ public class WeaponManager : MonoBehaviour
         WeaponData data = inventory.GetWeaponData(weaponId);
         WeaponInstance instance = inventory.GetWeaponInstance(weaponId);
 
-        if (data == null || instance == null /*|| !instance.isUnlocked*/)
+        if (data == null || instance == null)
         {
             Debug.LogWarning("Weapon not found or unlocked");
             return;
@@ -39,7 +39,18 @@ public class WeaponManager : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && currentWeapon != null)
-            if(!interactScript.getIsShoping())
+            if (!interactScript.getIsShoping())
                 currentWeapon.shoot();
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        {
+            string nextWeaponID = inventory.nextWeapon(currentWeapon.data.weaponId);
+            EquipWeapon(nextWeaponID);
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            string previousWeaponID = inventory.previousWeapon(currentWeapon.data.weaponId);
+            EquipWeapon(previousWeaponID);
+        }
     }
 }

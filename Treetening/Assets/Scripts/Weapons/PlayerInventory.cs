@@ -29,7 +29,37 @@ public class PlayerInventory : MonoBehaviour
 
     public void UnlockWeapon(string weaponID)
     {
-        ownedWeapons.Add(new WeaponInstance { weaponId = weaponID});
+        ownedWeapons.Add(new WeaponInstance { weaponId = weaponID });
+    }
+
+    public string nextWeapon(string currentWeaponID)
+    {
+        int currentWeaponIndex = ownedWeapons.FindIndex(weapon => weapon.weaponId == currentWeaponID);
+        int newIndex = currentWeaponIndex + 1;
+
+        if (newIndex < ownedWeapons.Count)
+        {
+            return ownedWeapons[newIndex].weaponId;
+        }
+        else
+        {
+            return ownedWeapons[0].weaponId;
+        }
+    }
+
+    public string previousWeapon(string currentWeaponID)
+    {
+        int currentWeaponIndex = ownedWeapons.FindIndex(weapon => weapon.weaponId == currentWeaponID);
+        int newIndex = currentWeaponIndex - 1;
+
+        if (newIndex >= 0)
+        {
+            return ownedWeapons[newIndex].weaponId;
+        }
+        else
+        {
+            return ownedWeapons[ownedWeapons.Count - 1].weaponId;
+        }
     }
 
     public int getWeaponPrice()
