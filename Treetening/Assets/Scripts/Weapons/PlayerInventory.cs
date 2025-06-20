@@ -111,9 +111,6 @@ public class PlayerInventory : MonoBehaviour
             ownedSeeds.Add(0);
         }
 
-        //Debug
-        ownedSeeds[0] = 3;
-        ownedSeeds[1] = 7;
-        money = 80;
+        
     }
 }

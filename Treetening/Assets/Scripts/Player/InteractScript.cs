@@ -1,9 +1,9 @@
-using System;
+//using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Cinemachine;
+//using System.Diagnostics;
+//using Cinemachine;
 using StarterAssets;
-using Unity.VisualScripting;
+//using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractScript : MonoBehaviour

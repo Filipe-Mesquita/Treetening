@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37bdbe78a0ac6bb4aa3359b60490d2db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 8
+  hp: 10
   rootValue: 10
   treeName: pine
   timeToBeginDestroyTree: 5
