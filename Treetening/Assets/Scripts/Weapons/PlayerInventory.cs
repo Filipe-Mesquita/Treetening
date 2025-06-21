@@ -12,6 +12,7 @@ public class PlayerInventory : MonoBehaviour
 
     [Header("Money")]
     private int money;
+    [SerializeField] private HudScript hudScript;
 
     [Header("Seeds")]
     public List<SeedData> allSeedData; //List with every seed's SeedDatas (populate manualy in the inspector)
@@ -82,6 +83,7 @@ public class PlayerInventory : MonoBehaviour
     public void setMoney(int money)
     {
         this.money = money;
+        hudScript.UpdateMoney();
     }
 
     public List<int> getOwnedSeeds()
@@ -93,6 +95,7 @@ public class PlayerInventory : MonoBehaviour
     {
         int index = allSeedData.FindIndex(seed => seed.seedID == seedID);
         ownedSeeds[index] = qtt;
+        hudScript.UpdateSeeds();
     }
 
     public void incOwnedSeed(string seedID)
@@ -111,6 +114,8 @@ public class PlayerInventory : MonoBehaviour
             ownedSeeds.Add(0);
         }
 
-        
+        //Debug
+        money = 100;
+        hudScript.UpdateMoney();
     }
 }

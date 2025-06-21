@@ -7,6 +7,7 @@ public class WeaponManager : MonoBehaviour
     public WeaponBehaviour currentWeapon;
 
     [SerializeField] InteractScript interactScript;
+    [SerializeField] HudScript hudScript;
 
     public void EquipWeapon(string weaponId)
     {
@@ -32,7 +33,10 @@ public class WeaponManager : MonoBehaviour
         currentWeapon = weaponGO.GetComponent<WeaponBehaviour>();
 
         if (currentWeapon != null)
+        {
             currentWeapon.Initialize(instance, data);
+            hudScript.UpdateWeapon();
+        }
         else
             Debug.LogError("Prefab without WeaponBehaviour");
     }

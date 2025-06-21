@@ -51,7 +51,7 @@ public class ShopUIScript : MonoBehaviour
 
     public void UpdateMoney()
     {
-        moneyTxt.text = $"MONEY: {inventoryScript.getMoney()}$";
+        moneyTxt.text = $"{inventoryScript.getMoney()}";
     }
 
     public void openSeedInfo(string seedID)

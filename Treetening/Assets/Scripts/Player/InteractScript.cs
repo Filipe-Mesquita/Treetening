@@ -15,6 +15,7 @@ public class InteractScript : MonoBehaviour
     [Header("User Interface")]
     [SerializeField] private GameObject UI;
     [SerializeField] private ShopUIScript shopUIScript;
+    [SerializeField] private HudScript hudScript;
     [SerializeField] private GameObject PlayerCameraRoot;
     [SerializeField] private GameObject PlayerFollowCamera;
 
@@ -115,6 +116,7 @@ public class InteractScript : MonoBehaviour
                     SeedData seed = pScirpt.allSeedData[i];
                     pScirpt.addSeeds(seed.seedID, ownedSeeds[i]);
                     inventory.setOwnedSeed(seed.seedID, 0);
+                    hudScript.UpdateSeeds();
                 }
             }
             else
@@ -143,7 +145,6 @@ public class InteractScript : MonoBehaviour
                 if (shopUI != null)
                 {
                     shopUI.gameObject.SetActive(true);
-                    ShopUIScript shopUIScript = shopUI.GetComponent<ShopUIScript>();
                     shopUIScript.UpdateMoney();
                 }
             }
@@ -171,7 +172,13 @@ public class InteractScript : MonoBehaviour
                 Transform hud = UI.transform.Find("HUD");
 
                 if (shopUI != null) shopUI.gameObject.SetActive(false);
-                if (hud != null) hud.gameObject.SetActive(true);
+                if (hud != null)
+                {
+                    hud.gameObject.SetActive(true);
+                    hudScript.UpdateMoney();
+                    hudScript.UpdateWeapon();
+                    hudScript.UpdateSeeds();
+                }
             }
             else
             {
