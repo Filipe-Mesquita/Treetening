@@ -111,10 +111,10 @@ public class ShopUIScript : MonoBehaviour
             unlockedWeaponPriceTxt.text = $"Upgrade Price: {inventoryScript.getWeaponPrice()}$";
 
             //Set hability 1
-            hability1Txt.text = weaponData.hability1Name;
+            hability1Txt.text = weaponData.attribute1Name;
 
             //Set hability 2
-            hability2Txt.text = weaponData.hability2Name;
+            hability2Txt.text = weaponData.attribute2Name;
         }
         //If its not found, then its locked
         else
@@ -169,7 +169,7 @@ public class ShopUIScript : MonoBehaviour
 
     }
 
-    public void buyUpgrade(int habNumber)
+    public void buyUpgrade(int attNumber)
     {
         //Gets player's money
         int money = inventoryScript.getMoney();
@@ -186,7 +186,7 @@ public class ShopUIScript : MonoBehaviour
             string weaponID = buyInfoScript.getItemID();
 
             WeaponInstance weaponInstance = inventoryScript.GetWeaponInstance(weaponID);    //Updates weaponAttribute level
-            if (habNumber == 1)
+            if (attNumber == 1)
                 weaponInstance.attribute1Level++;
             else
                 weaponInstance.attribute2Level++;

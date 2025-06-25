@@ -4,7 +4,6 @@ using System;
 public class WeaponInstance
 {
     public string weaponId;
-    //public bool isUnlocked;
     public int attribute1Level;
     public int attribute2Level;
 

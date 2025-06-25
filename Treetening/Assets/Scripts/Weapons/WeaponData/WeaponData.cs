@@ -10,7 +10,8 @@ public class WeaponData : ScriptableObject
     public float baseAttribute1;
     public float baseAttribute2;
 
-    public string hability1Name;
-    public string hability2Name;
+    public string attribute1Name;
+    public string attribute2Name;
+
     public Sprite weaponSprite;
 }

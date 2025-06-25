@@ -40,7 +40,7 @@ public class InteractScript : MonoBehaviour
             Detect();
     }
 
-    // Creates a sphere that detects gameObjects inside it and hands them properly
+    // Creates a sphere that detects gameObjects inside it and handles them properly
     private void Detect()
     {
         Vector3 explosionPoint = playerPos.position + Camera.main.transform.forward * 1f;
@@ -73,8 +73,8 @@ public class InteractScript : MonoBehaviour
                     break;
 
                 /*
-                Aqui ficarão o resto das interações
-                *fazer um case para cada caso*
+                Here we'll have the other interactions
+                **Make a case for each one**
                 */
 
                 default:

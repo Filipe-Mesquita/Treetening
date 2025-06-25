@@ -102,7 +102,7 @@ public class HatchetBehaviour : WeaponBehaviour
         }
     }
 
-     private IEnumerator HandleRootCollider(Collider hit)
+    private IEnumerator HandleRootCollider(Collider hit)
     {
         RootScript rootScript = hit.gameObject.GetComponentInChildren<RootScript>();
         TreeScript treeScript = hit.gameObject.GetComponent<TreeScript>();
