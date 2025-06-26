@@ -114,8 +114,8 @@ public class PlayerInventory : MonoBehaviour
             ownedSeeds.Add(0);
         }
 
-        //Debug
-        money = 100;
-        hudScript.UpdateMoney();
+        // //Debug
+        // money = 100;
+        // hudScript.UpdateMoney();
     }
 }

@@ -43,18 +43,20 @@ public class WeaponManager : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && currentWeapon != null)
-            if (!interactScript.getIsShoping())
+            if (!interactScript.getIsShoping() && !interactScript.getIsPaused())
                 currentWeapon.shoot();
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
             string nextWeaponID = inventory.nextWeapon(currentWeapon.data.weaponId);
-            EquipWeapon(nextWeaponID);
+            if (!interactScript.getIsShoping() && !interactScript.getIsPaused())
+                EquipWeapon(nextWeaponID);
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
             string previousWeaponID = inventory.previousWeapon(currentWeapon.data.weaponId);
-            EquipWeapon(previousWeaponID);
+            if (!interactScript.getIsShoping() && !interactScript.getIsPaused())
+                EquipWeapon(previousWeaponID);
         }
     }
 }

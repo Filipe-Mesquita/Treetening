@@ -32,12 +32,23 @@ public class InteractScript : MonoBehaviour
     [SerializeField] private PlayerInventory inventory;
 
     private bool isShoping = false; // Controls of the game should show or hide shopUi
+    private bool isPaused = false; // Controls of the game should show or hide pauseUi
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        // Hide the mouse cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
             Detect();
+        if (Input.GetKeyDown(KeyCode.Escape))
+            handlePause();
     }
 
     // Creates a sphere that detects gameObjects inside it and handles them properly
@@ -198,6 +209,68 @@ public class InteractScript : MonoBehaviour
     public bool getIsShoping()
     {
         return isShoping;
+    }
+
+    public void handlePause()
+    {
+        if (!isPaused)
+        {
+            isPaused = true;
+
+            // Desable HUD and enable PauseUI
+            if (UI != null)
+            {
+                Transform pause = UI.transform.Find("Pause");
+                Transform hud = UI.transform.Find("HUD");
+
+                if (hud != null) hud.gameObject.SetActive(false);
+                if (pause != null) pause.gameObject.SetActive(true);
+
+            }
+            else
+            {
+                UnityEngine.Debug.LogWarning("UI Root not associated to the InteractScript!");
+            }
+
+            //Show the mouse cursor
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            // Desable player and camera movement
+            FirstPersonController fpController = GetComponentInChildren<FirstPersonController>();
+            fpController.enabled = false;
+        }
+        else
+        {
+            isPaused = false;
+
+            // Enable HUd and desable PauseUI
+            if (UI != null)
+            {
+                Transform pause = UI.transform.Find("Pause");
+                Transform hud = UI.transform.Find("HUD");
+
+                if (pause != null) pause.gameObject.SetActive(false);
+                if (hud != null) hud.gameObject.SetActive(true);
+            }
+            else
+            {
+                UnityEngine.Debug.LogWarning("UI Root não está atribuído ao InteractScript!");
+            }
+
+            // Hide the mouse cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            // Enable player and camera movement
+            FirstPersonController fpController = GetComponentInChildren<FirstPersonController>();
+            fpController.enabled = true;
+        }
+    }
+
+    public bool getIsPaused()
+    {
+        return isPaused;
     }
 
     /*----------------------------------------------//-----------------------------------------------*/
