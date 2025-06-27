@@ -35,8 +35,10 @@ public class ShopUIScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI unlockedWeaponNameTxt;
     [SerializeField] TextMeshProUGUI lockedWeaponPriceTxt;
     [SerializeField] TextMeshProUGUI unlockedWeaponPriceTxt;
-    [SerializeField] TextMeshProUGUI hability1Txt;
-    [SerializeField] TextMeshProUGUI hability2Txt;
+    [SerializeField] TextMeshProUGUI attribute1Txt;
+    [SerializeField] TextMeshProUGUI attribute1LevelTxt;
+    [SerializeField] TextMeshProUGUI attribute2Txt;
+    [SerializeField] TextMeshProUGUI attribute2LevelTxt;
 
     [Header("Every Info Panel")]
     [SerializeField] GameObject seedInfo;
@@ -110,10 +112,16 @@ public class ShopUIScript : MonoBehaviour
             unlockedWeaponPriceTxt.text = $"Upgrade Price: {inventoryScript.getWeaponPrice()}$";
 
             //Set hability 1
-            hability1Txt.text = weaponData.attribute1Name;
+            attribute1Txt.text = weaponData.attribute1Name;
+
+            //Set hability 1 level
+            attribute1LevelTxt.text = $"Lvl: {inventoryScript.ownedWeapons.First(weapon => weapon.weaponId == weaponID).attribute1Level.ToString()}";
 
             //Set hability 2
-            hability2Txt.text = weaponData.attribute2Name;
+            attribute2Txt.text = weaponData.attribute2Name;
+
+            //Set hability 2 level
+            attribute2LevelTxt.text = $"Lvl: {inventoryScript.ownedWeapons.First(weapon => weapon.weaponId == weaponID).attribute2Level.ToString()}";
         }
         //If its not found, then its locked
         else
@@ -193,7 +201,7 @@ public class ShopUIScript : MonoBehaviour
             inventoryScript.IncreaseWeaponPrice();  //Increases the price for buying new weapons and upgrades
             inventoryScript.setMoney(newMoney); //Updates player's money
             UpdateMoney();  //Updates the money in the shop UI
-            openWeaponInfo(weaponID);   //Updates the upgrade price in the shop UI
+            openWeaponInfo(weaponID);   //Updates the upgrade price and the levels in the shop UI
         }
         else
         {
