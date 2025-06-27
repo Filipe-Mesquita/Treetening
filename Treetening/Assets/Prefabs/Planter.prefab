@@ -880,3 +880,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 390494672f971e5468b97323f1df87bd, type: 2}
   - {fileID: 11400000, guid: 7318e219009c1cd45b39b34b456d4425, type: 2}
   groundObject: {fileID: 0}
+  timeToPlantFreeTree: 60

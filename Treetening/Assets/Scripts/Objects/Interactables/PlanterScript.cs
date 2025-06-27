@@ -8,13 +8,13 @@ public class PlanterScript : MonoBehaviour
 {
     public List<SeedData> allSeedData; //List with every seed's SeedDatas (populate manualy in the inspector)
     public GameObject groundObject; //Object where the seeds will be planted
-    //public float plantCooldown; //Cooldown between each seed is planted
 
     private List<int> availableSeeds = new List<int>(); //List of each seed quantity available inside the planter. The seed's ID corresponds to it index inside the list
     private Bounds groundBounds;
 
-    //private float nextPlantTime = 0f;
     private bool isPlanting = false;
+
+    [SerializeField] float timeToPlantFreeTree = 60;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,6 +39,9 @@ public class PlanterScript : MonoBehaviour
                 Debug.LogError("No collider in Ground object!");
             }
         }
+
+        // Starts the courotine that plants a mahogany tree every 60 seconds
+        StartCoroutine(PlantFreeSeeds());
     }
 
     // Update is called once per frame
@@ -90,6 +93,19 @@ public class PlanterScript : MonoBehaviour
         {
             TextMeshProUGUI cardText = card.GetComponent<TextMeshProUGUI>();
             cardText.text = newQtt.ToString();
+        }
+    }
+
+
+    IEnumerator PlantFreeSeeds()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(timeToPlantFreeTree);
+
+            availableSeeds[0]++;
+            updateCard(0, availableSeeds[0]);
+            StartCoroutine(PlantSeed(0));
         }
     }
 
