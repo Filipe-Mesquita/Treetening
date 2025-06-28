@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseUIScript : MonoBehaviour
 {
-     [Header("Scripts")]
+    [Header("Scripts")]
     [SerializeField] InteractScript interactScript;
 
     public void exitBtn()

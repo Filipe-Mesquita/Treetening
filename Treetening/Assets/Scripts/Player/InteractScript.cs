@@ -54,13 +54,13 @@ public class InteractScript : MonoBehaviour
     // Creates a sphere that detects gameObjects inside it and handles them properly
     private void Detect()
     {
-        Vector3 explosionPoint = playerPos.position + Camera.main.transform.forward * 1f;
+        Vector3 sphereCenter = playerPos.position + Camera.main.transform.forward * 1f;
         UnityEngine.Debug.Log($"playerPos.position: {playerPos.position}");
-        Collider[] hits = Physics.OverlapSphere(explosionPoint, hitAcceptanceRadius, hitLayers);
+        Collider[] hits = Physics.OverlapSphere(sphereCenter, hitAcceptanceRadius, hitLayers);
 
-        // Visualize explosion point and radius (Debug purposes)
+        // Visualize spehre center and radius (Debug purposes)
         if (debug)
-            VisualizeDetection(explosionPoint);
+            VisualizeDetection(sphereCenter);
 
         foreach (Collider hit in hits)
         {
