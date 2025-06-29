@@ -4,11 +4,11 @@ public class PlayerCatcherScript : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        // Verifica se o objeto que entrou no trigger é o PlayerCapsule
+        // Checks if the object that entered the trigger is the Player
         if (other.CompareTag("Player"))
         {
 
-            Debug.Log("Dentro do collider");
+            Debug.Log("Inside the collider");
             Debug.Log($"{other.gameObject.name}");
 
             // Gets the Player's CharacterController
