@@ -6,9 +6,9 @@ public class PlayerInventory : MonoBehaviour
     [Header("Weapons")]
     public List<WeaponData> allWeaponData; //List with every weapon's WeaponDatas (populate manualy in the inspector)
     public List<WeaponInstance> ownedWeapons = new List<WeaponInstance>();
-    public WeaponManager weaponManager;
     [SerializeField] private int weaponPrice;
     [SerializeField] private float weaponPriceMult;
+    public WeaponManager weaponManager;
 
     [Header("Money")]
     private int money;
@@ -114,8 +114,8 @@ public class PlayerInventory : MonoBehaviour
             ownedSeeds.Add(0);
         }
 
-        //Debug
-        money = 100;
-        hudScript.UpdateMoney();
+        // //Debug
+        // money = 100;
+        // hudScript.UpdateMoney();
     }
 }

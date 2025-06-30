@@ -78,7 +78,6 @@ public class RocketGlovesBehaviour : WeaponBehaviour
         canShoot = freeToShoot;
     }
 
-
     public void applyDamage(Collider hit)
     {
         TreeScript treeScript = hit.gameObject.GetComponent<TreeScript>();

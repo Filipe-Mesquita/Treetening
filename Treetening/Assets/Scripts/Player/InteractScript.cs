@@ -274,7 +274,7 @@ public class InteractScript : MonoBehaviour
     }
 
     /*----------------------------------------------//-----------------------------------------------*/
-    //  Creates a sphere taht represents the area affected by the hit detection (Debug purposes)
+    //  Creates a sphere that represents the area affected by the hit detection (Debug purposes)
     private void VisualizeDetection(Vector3 explosionPoint)
     {
         // Create a sphere primitive for visualization
